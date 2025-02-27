@@ -19,4 +19,27 @@ library(here)
 ```{r}
 lobster_traps <- read_csv(here::here("data/Lobster_Trap_Counts_All_Years_20210519.csv"))
 ```
+```{r}
+#Convert -99999 to NA
+unique(lobster_traps$TRAPS)
+traps_clean <- lobster_traps %>%
+  mutate(TRAPS = na_if(TRAPS, -99999))
+unique(traps_clean$TRAPS)
+```
+```{r}
+traps_no_naples <- traps_clean %>%
+  filter(SITE != "NAPL")
+unique(traps_no_naples$SITE)
+```
+```{r}
+traps_carp20 <- traps_clean %>%
+  filter(SITE == "CARP") %>%
+  filter(TRAPS > 20)
+```
+```{r}
+traps_max_floats <- traps_clean %>%
+  group_by(SITE, MONTH) %>%
+  summarise(max_traps = max(TRAPS, na.rm = TRUE))
+  
+```
 
