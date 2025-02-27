@@ -16,10 +16,40 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 library(here)
+
 ```
 
+##reading in data
 ```{r}
 lobster_abundance <- read_csv(here::here("data/Lobster_Abundance_All_Years_20220829.csv"))
 
+```
+
+##q1
+```{r}
+
+lobster_abundance <- lobster_abundance %>% 
+  mutate(SIZE_MM = na_if(SIZE_MM, -99999))
+       
+```
+
+##q2
+```{r}
+not_NAPL <- lobster_abundance %>% 
+  filter(SITE == "NAPL" )
+```
+
+##q3
+```{r}
+AQUE_70 <- lobster_abundance %>% 
+  filter(SITE == "AQUE"& SIZE_MM >= 70)
+
+```
+
+##q4
+```{r}
+max_lobster <- lobster_abundance %>% 
+  group_by(SITE, MONTH) %>% 
+  summarise(MAX_LENGTH = max(SIZE_MM, na.rm = TRUE))
 ```
 
