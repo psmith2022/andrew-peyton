@@ -53,3 +53,36 @@ max_lobster <- lobster_abundance %>%
   summarise(MAX_LENGTH = max(SIZE_MM, na.rm = TRUE))
 ```
 
+
+
+#Visualization
+
+##q5
+```{r}
+ggplot(data = lobster_abundance, 
+       aes(x = SIZE_MM)) +
+    geom_histogram() +
+    facet_wrap(~SITE)
+```
+
+##q6
+```{r}
+lobster_summarize <- lobster_abundance %>% 
+  group_by(SITE, YEAR) %>% 
+  summarize(COUNT = n())
+
+ggplot(data = lobster_summarize, 
+       aes(x=YEAR, y=COUNT))+
+  geom_line(aes(color=SITE))+
+  geom_point(aes(color=SITE))
+```
+
+#q7
+
+```{r}
+lobster_size_lrg <- lobster_abundance %>% 
+  filter(YEAR %in% c("2019", "2020", "2021")) %>% 
+
+
+```
+
