@@ -42,4 +42,31 @@ traps_max_floats <- traps_clean %>%
   summarise(max_traps = max(TRAPS, na.rm = TRUE))
   
 ```
+## Exercise: Data Visualization
+
+```{r}
+#Histogram
+  ggplot(traps_clean, aes(x = TRAPS)) +
+  geom_histogram() +
+  facet_wrap(~ YEAR)
+
+```
+```{r}
+lobsters_traps_summarize <-
+  traps_clean %>%
+  group_by(SITE,YEAR) %>%
+  mutate(TOTAL_TRAPS = sum(TRAPS, na.rm = TRUE))
+
+ggplot(lobsters_traps_summarize, aes(x = YEAR, y = TOTAL_TRAPS)) +
+  geom_line(aes(color = SITE)) +
+  geom_point(aes(colour = SITE))
+```
+
+```{r}
+lobster_traps_fishing_pressure <- traps_clean %>%
+  filter(YEAR = c("2019","2020","2021")) %>%
+  mutate(FISHING_PRESSURE = if_else(condition = ))
+
+
+```
 
